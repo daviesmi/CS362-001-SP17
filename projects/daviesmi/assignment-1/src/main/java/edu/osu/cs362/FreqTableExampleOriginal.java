@@ -42,7 +42,7 @@ public class FreqTableExampleOriginal {
         if( freqs.length == 0)
             System.out.println("No frequency table created due to problems when reading from file");
         else{
-            for(int i = 0; i < freqs.length; i++){
+            for(int i = 0; i <= freqs.length; i++){
                 System.out.println("charcater code: " + i + " ,character: " + (char)i + " ,frequency: " + freqs[i]);
             }
             System.out.println("Total characters in file: " + sum(freqs));
