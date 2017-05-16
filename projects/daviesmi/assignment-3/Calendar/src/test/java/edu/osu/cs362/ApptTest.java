@@ -42,7 +42,7 @@ public class ApptTest {
 	@Test
 	public void test02() throws Throwable {
 	    int startHour=13;
-	    int newHour = 14;
+	    int newHour = 11;
 	    int startMinute=30;
 	    int newMinute = 40;
 	    int startDay=10;
@@ -79,14 +79,14 @@ public class ApptTest {
 	    
 	    // assertions
 	    assertTrue(appt.getValid());
-	    assertEquals(14, appt.getStartHour());
+	    assertEquals(11, appt.getStartHour());
 	    assertEquals(40, appt.getStartMinute());
 	    assertEquals(12, appt.getStartDay());
 	    assertEquals(05, appt.getStartMonth());
 	    assertEquals(2018, appt.getStartYear());
 	    assertEquals("Deathday Party", appt.getTitle());
 	    assertEquals("This is my deathday party.", appt.getDescription());
-	    assertEquals("\t5/12/2018 at 2:40pm ,Deathday Party, This is my deathday party.\n", appt.toString());
+	    assertEquals("\t5/12/2018 at 11:40am ,Deathday Party, This is my deathday party.\n", appt.toString());
 	}
 	
 	@Test
@@ -134,8 +134,63 @@ public class ApptTest {
 		    title,
 		    description);
 	    assertFalse(appt.getValid());
+	    
 	    assertNull(appt.toString());
 	    appt.setStartHour(0);
 	    assertEquals("\t4/10/2017 at 12:30am ,Birthday Party, This is my birthday party.\n", appt.toString());
+	}
+	
+	@Test
+	public void test04() throws Throwable {
+	    int startHour=13;
+	    int startMinute=30;
+	    int startDay=10;
+	    int startMonth=4;
+	    int startYear=2017;
+	    String title="Birthday Party";
+	    String description="This is my birthday party.";
+	    //Construct invalid Appointment objects with the initial data	 
+	    Appt appt = new Appt(startHour,
+		    startMinute ,
+		    startDay ,
+		    startMonth ,
+		    startYear ,
+		    title,
+		    description);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartDay(40);
+	    assertFalse(appt.getValid());
+	    
+	    appt.setStartDay(startDay);
+	    appt.setStartMonth(40);
+	    assertFalse(appt.getValid());
+	    
+	    appt.setStartYear(-10);
+	    assertFalse(appt.getValid());
+	    
+	    appt.setStartMonth(12);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartMonth(1);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartDay(1);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartDay(31);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartMinute(0);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartMinute(59);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartHour(0);
+	    assertTrue(appt.getValid());
+	    
+	    appt.setStartHour(23);
+	    assertTrue(appt.getValid());
 	}
 }
